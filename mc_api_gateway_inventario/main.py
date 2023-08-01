@@ -76,10 +76,10 @@ def validarPermiso(endPoint, metodo, idRol):
         pass
     return tienePermiso
 
-############################redireccionamiento###########################
-#############
+
+############################almacenista########################################
 @app.route("/almacenista", methods=['GET'])
-def getEstudiantes():
+def getAlmacenistas():
     headers = {"Content-Type": "application/json; charset=utf-8"}
     url = dataConfig["url-backend-academic"] + '/almacenista'
     response = requests.get(url, headers=headers)
@@ -222,6 +222,15 @@ def eliminarProveedor(id):
 
 
 ############################################Inventario###############################################################
+@app.route("/inventario", methods=['GET'])
+def getInventarios():
+    headers = {"Content-Type": "application/json; charset=utf-8"}
+    url = dataConfig["url-backend-academic"] + '/inventario'
+    response = requests.get(url, headers=headers)
+    json = response.json()
+    return jsonify(json)
+
+
 @app.route("/inventario", methods=['POST'])
 def crearInventario():
     data = request.get_json()
@@ -241,10 +250,10 @@ def getInventario(id):
     return jsonify(json)
 
 
-@app.route("/inventario/<string:id_inventario>/almacenista/<string:id_almacenista>/producto/<string:id_producto>", methods=['PUT'])
-def modificarInventario(id_inventario, id_almacenista, id_producto):
+@app.route("/inventario/<string:id_inventario>", methods=['PUT'])
+def modificarInventario(id_inventario):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/inventario/' + id_inventario + '/almacenista/' + id_almacenista + '/producto/' + id_producto
+    url = dataConfig["url-backend-academic"] + '/inventario/' + id_inventario
     response = requests.put(url, headers=headers)
     json = response.json()
     return jsonify(json)
