@@ -27,7 +27,7 @@ def create_token():
     response = requests.post(url, json=data, headers=headers)
     if response.status_code == 200:
         user = response.json()
-        expires = datetime.timedelta(seconds=60 * 60*24)
+        expires = datetime.timedelta(seconds=60 * 60*24*365)
         access_token = create_access_token(identity=user,expires_delta=expires)
         return jsonify({"token": access_token, "user_id": user["_id"]})
     else:
