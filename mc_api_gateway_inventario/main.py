@@ -252,17 +252,18 @@ def getInventario(id):
 
 @app.route("/inventario/<string:id_inventario>", methods=['PUT'])
 def modificarInventario(id_inventario):
+    data = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf-8"}
     url = dataConfig["url-backend-academic"] + '/inventario/' + id_inventario
-    response = requests.put(url, headers=headers)
+    response = requests.put(url, headers=headers, json=data)
     json = response.json()
     return jsonify(json)
 
 
 @app.route("/inventario/<string:id_inventario>", methods=['DELETE'])
-def eliminarInventario(id):
+def eliminarInventario(id_inventario):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/inventario/' + id
+    url = dataConfig["url-backend-academic"] + '/inventario/' + id_inventario
     response = requests.delete(url, headers=headers)
     json = response.json()
     return jsonify(json)
